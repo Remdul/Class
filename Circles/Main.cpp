@@ -83,28 +83,27 @@ void genCircle(std::vector<Circle> &circles)
 		cir.center  	= newPoint;
 		cir.radius 		= rand() % 10 + 1;
 		circles.push_back(cir);
-		cout << cir << endl;
+//		cout << cir << endl; // DEBUG LINE <- Show's all circle's.
 	}
 }
 
-double intersectionCount(const vector<Circle> &circles)
+int intersectionCount(const vector<Circle> &circles)
 {
 	int i;
 	int j;
-	int count = 0;
+	double count = 0;
 	for (i = 0; i < circles.size(); i++)
 	{
 		for (j = i+1; j < circles.size(); j++)
 		{
 			if (circles[i].circleIntersect(circles[j]) == true)
 			{
-				cout << "Circle at " << circles[i]  << " intersects circle at " << circles[j] << "." << endl;
+//				cout << "Circle at " << circles[i]  << " intersects circle at " << circles[j] << "." << endl; // DEBUG LINE <- Show's all intersections.
 				count++;
 			}
 		}
 	}
-	double value = count;
-	return value;
+	return count;
 }
 
 double averageIntersections(vector<Circle> &cir, double count)
@@ -117,17 +116,15 @@ int main()
 {
 	vector<Circle> circles;
 
-	int runCount = 1;
+	int runCount = 1000;
 	int i;
 
 	for (i = 0; i < runCount; i++)
 	{
 		genCircle(circles);
 	}
-	double count = intersectionCount(circles);
+	int count = intersectionCount(circles);
 	cout << "Total Circle Intersections  : " << count << endl;
-	cout << "Average Circle Intersections: " << averageIntersections(circles, count) << endl;
-
-
+	cout << "Average Circle Intersections: " << averageIntersections(circles, ((double)count)) << endl;
 	return 0;
 }
