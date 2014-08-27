@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <ctime>
-#include <cstdlib>
-#include <math.h>
+#include <stdlib.h>
+#include "math.h"
+
 
 using std::cout;
 using std::cin;
@@ -59,13 +59,6 @@ bool Circle::isInCircle(Point calcPoint) {
 	}
 	return true;
 }
-int rand(int min, int max)
-{
-	int range = max - min + 1;
-	int num = std::rand() % range;
-	num += min;
-	return num;
-}
 
 void genCircle(std::vector<Circle> &circles)
 {
@@ -74,29 +67,31 @@ void genCircle(std::vector<Circle> &circles)
 	int circleCount = 10;
 	int x;
 	int y;
+	srand (time(NULL));
 
 	int min_rad = 0;
 	int max_rad = 10;
 
 	int min_point = -5;
 	int max_point = 5;
-
 	for (int i = 0; i < circleCount; i++)
 	{
 		Circle cir;
 		Point newPoint;
-		newPoint.x 		= rand(min_point, max_point);
-		newPoint.y 		= rand(min_point, max_point);
-		cir.center  = newPoint;
-		cir.radius 	= rand(min_rad, max_rad);
+		newPoint.x 		= rand() % 11 + (-5);
+		newPoint.y 		= rand() % 11 + (-5);
+		cir.center  	= newPoint;
+		cir.radius 		= rand() % 10 + 1;
 		circles.push_back(cir);
+		cout << cir << endl;
 	}
 }
 
-void intersectionCount(const vector<Circle> &circles)
+double intersectionCount(const vector<Circle> &circles)
 {
 	int i;
 	int j;
+	int count = 0;
 	for (i = 0; i < circles.size(); i++)
 	{
 		for (j = i+1; j < circles.size(); j++)
@@ -104,22 +99,34 @@ void intersectionCount(const vector<Circle> &circles)
 			if (circles[i].circleIntersect(circles[j]) == true)
 			{
 				cout << "Circle at " << circles[i]  << " intersects circle at " << circles[j] << "." << endl;
+				count++;
 			}
 		}
 	}
+	double value = count;
+	return value;
 }
+
+double averageIntersections(vector<Circle> &cir, double count)
+{
+	double dub = count / cir.size();
+	return dub;
+}
+
 int main()
 {
 	vector<Circle> circles;
 
-	int runCount = 1000;
+	int runCount = 1;
 	int i;
 
-	for (i = 0; i < 1000; i++)
+	for (i = 0; i < runCount; i++)
 	{
 		genCircle(circles);
-		intersectionCount(circles);
 	}
+	double count = intersectionCount(circles);
+	cout << "Total Circle Intersections  : " << count << endl;
+	cout << "Average Circle Intersections: " << averageIntersections(circles, count) << endl;
 
 
 	return 0;
