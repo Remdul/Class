@@ -1,0 +1,23 @@
+Test:: Total Points: 4.2995e+07
+Average Total Intersections 0: 4299.5
+Test:: Total Points: 1000
+Average Total Intersections 1: 0.1
+Test:: Total Points: 2000
+Average Total Intersections 2: 0.2
+Test:: Total Points: 1000
+Average Total Intersections 3: 0.1
+Test:: Total Points: 1000
+Average Total Intersections 4: 0.1
+Test:: Total Points: 1000
+Average Total Intersections 5: 0.1
+Test:: Total Points: 2000
+Average Total Intersections 6: 0.2
+Test:: Total Points: 0
+Average Total Intersections 7: 0
+Test:: Total Points: 1000
+Average Total Intersections 8: 0.1
+Test:: Total Points: 0
+Average Total Intersections 9: 0
+Test:: Total Points: 1000
+Average Total Intersections 10: 0.1
+

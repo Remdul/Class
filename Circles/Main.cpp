@@ -155,6 +155,7 @@ int main()
         {
             aver = aver + rads[k];
         }
+        cout << "Test:: Total Points: " << aver << endl;
         aver = aver / circles.size();
         cout << "Average Total Intersections " << i << ": " << aver << endl;
 
