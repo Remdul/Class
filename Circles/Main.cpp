@@ -110,214 +110,60 @@ int intersectionCount(const vector<Circle> &circles)
     return count;
 }
 
-double averageIntersections(int calc, vector<Circle> &cir, double count)
+void averageIntersections(int calc, Circle &circles, vector<double> &rads,
+        double count)
 {
-    int i = 0;
-    double dub = 0;
-    double r = 0;
-    vector<double> rads;
-
+    double test = 1;
     if (calc == 0)
     {
-        dub = count / cir.size();
-        return dub;
+        rads.push_back(count);
     }
-    else if (calc == 1)
+    else if (circles.radius == calc)
     {
-        for (i = 0; i < cir.size(); i++)
-        {
-            r = cir[i].radius;
-            if (r == 1)
-            {
-                rads.push_back(cir[i].radius);
-            }
-            for (i = 0; i < rads.size(); i++)
-            {
-                dub = dub + rads[i];
-            }
-            rads.clear();
-            return dub / cir.size();
-        }
+        rads.push_back(test);
     }
-    else if (calc == 2)
-    {
-        for (i = 0; i < cir.size(); i++)
-        {
-            r = cir[i].radius;
-            if (r == 2)
-            {
-                rads.push_back(cir[i].radius);
-            }
-            for (i = 0; i < rads.size(); i++)
-            {
-                dub = dub + rads[i];
-            }
-            rads.clear();
-            return dub / cir.size();
-        }
-    }
-    else if (calc == 3)
-    {
-        for (i = 0; i < cir.size(); i++)
-        {
-            r = cir[i].radius;
-            if (r == 3)
-            {
-                rads.push_back(cir[i].radius);
-            }
-            for (i = 0; i < rads.size(); i++)
-            {
-                dub = dub + rads[i];
-            }
-            rads.clear();
-            return dub / cir.size();
-        }
-
-    }
-    else if (calc == 4)
-    {
-        for (i = 0; i < cir.size(); i++)
-        {
-            r = cir[i].radius;
-            if (r == 4)
-            {
-                rads.push_back(cir[i].radius);
-            }
-            for (i = 0; i < rads.size(); i++)
-            {
-                dub = dub + rads[i];
-            }
-            rads.clear();
-            return dub / cir.size();
-        }
-
-    }
-    else if (calc == 5)
-    {
-        for (i = 0; i < cir.size(); i++)
-        {
-            r = cir[i].radius;
-            if (r == 5)
-            {
-                rads.push_back(cir[i].radius);
-            }
-            for (i = 0; i < rads.size(); i++)
-            {
-                dub = dub + rads[i];
-            }
-            rads.clear();
-            return dub / cir.size();
-        }
-
-    }
-    else if (calc == 6)
-    {
-        for (i = 0; i < cir.size(); i++)
-        {
-            r = cir[i].radius;
-            if (r == 6)
-            {
-                rads.push_back(cir[i].radius);
-            }
-            for (i = 0; i < rads.size(); i++)
-            {
-                dub = dub + rads[i];
-            }
-            rads.clear();
-            return dub / cir.size();
-        }
-
-    }
-    else if (calc == 7)
-    {
-        r = cir[i].radius;
-        if (r == 7)
-        {
-            rads.push_back(cir[i].radius);
-        }
-        for (i = 0; i < rads.size(); i++)
-        {
-            dub = dub + rads[i];
-        }
-        rads.clear();
-        return dub / cir.size();
-    }
-    else if (calc == 8)
-    {
-        r = cir[i].radius;
-        if (r == 8)
-        {
-            rads.push_back(cir[i].radius);
-        }
-        for (i = 0; i < rads.size(); i++)
-        {
-            dub = dub + rads[i];
-        }
-        rads.clear();
-        return dub / cir.size();
-
-    }
-    else if (calc == 9)
-    {
-        r = cir[i].radius;
-        if (r == 9)
-        {
-            rads.push_back(cir[i].radius);
-        }
-        for (i = 0; i < rads.size(); i++)
-        {
-            dub = dub + rads[i];
-        }
-        rads.clear();
-        return dub / cir.size();
-
-    }
-    else if (calc == 10)
-    {
-        r = cir[i].radius;
-        if (r == 10)
-        {
-            rads.push_back(cir[i].radius);
-        }
-        for (i = 0; i < rads.size(); i++)
-        {
-            dub = dub + rads[i];
-        }
-        rads.clear();
-        return dub / cir.size();
-
-    }
-    else
-    {
-        cout << "Fail." << endl;
-        return 0;
-    }
-    return 0;
 }
 
 int main()
 {
     vector<Circle> circles;
-
+    vector<double> rads;
     int runCount = 1000;
     int i;
+    int j;
+    int k;
+    int maxrad = 11;
+    double test = 0;
+    double aver = 0;
 
     for (i = 0; i < runCount; i++)
     {
         genCircle(circles);
     }
     int count = intersectionCount(circles);
-    cout << "Total Circle Intersections  : " << count << endl;
-    cout << "Average Total Intersections   : "<< averageIntersections(0, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  1: "<< averageIntersections(1, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  2: "<< averageIntersections(2, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  3: "<< averageIntersections(3, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  4: "<< averageIntersections(4, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  5: "<< averageIntersections(5, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  6: "<< averageIntersections(6, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  7: "<< averageIntersections(7, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  8: "<< averageIntersections(8, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad  9: "<< averageIntersections(9, circles, ((double) count)) << endl;
-    cout << "Average Intersection at Rad 10: "<< averageIntersections(10, circles, ((double) count)) << endl;
+    for (i = 0; i < maxrad; i++)
+    {
+        rads.clear();
+        aver = 0;
+        for (j = 0; j < circles.size(); j++)
+        {
+            averageIntersections(i, circles[j], rads,
+                    ((double) count) / circles.size());
+        }
+
+        for (k = 0; k < rads.size(); k++)
+        {
+            aver = aver + rads[k];
+        }
+        aver = aver / circles.size();
+        cout << "Average Total Intersections " << i << ": " << aver << endl;
+
+    }
+    /*USED TO OUTPUT ALL RADI*/
+    /*    for (j = 0; j < circles.size(); j++)
+     {
+     cout << "#" << j << " :: Radius:: " << circles[j].radius << endl;
+     }*/
+
     return 0;
 }
