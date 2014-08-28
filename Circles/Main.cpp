@@ -91,80 +91,105 @@ void genCircle(std::vector<Circle> &circles)
     }
 }
 
-int intersectionCount(const vector<Circle> &circles)
+int intersectionCount(int rad, const vector<Circle> &circles)
 {
     int i;
     int j;
     double count = 0;
-    for (i = 0; i < circles.size(); i++)
+    if (rad == 0)
     {
-        for (j = i + 1; j < circles.size(); j++)
+        for (i = 0; i < circles.size(); i++)
         {
-            if (circles[i].circleIntersect(circles[j]) == true)
+            for (j = i + 1; j < circles.size(); j++)
             {
-//				cout << "Circle at " << circles[i]  << " intersects circle at " << circles[j] << "." << endl; // DEBUG LINE <- Show's all intersections.
-                count++;
+                if (circles[i].circleIntersect(circles[j]) == true)
+                {
+                    count++;
+                }
             }
         }
     }
-    return count;
-}
+    else
+    {
+        for (i = 0; i < circles.size(); i++)
+        {
+            for (j = i + 1; j < circles.size(); j++)
+            {
+                if ((circles[i].circleIntersect(circles[j]) == true)
+                        && circles[i].radius == rad)
+                {
+                    /*                    cout << "Circle at " << circles[i]
+                     << " intersects circle at " << circles[j] << "."
+                     << endl; // DEBUG LINE <- Show's all intersections.*/
+                    count++;
+                }
+            }
+        }
 
-void averageIntersections(int calc, Circle &circles, vector<double> &rads,
-        double count)
-{
-    double test = 1;
-    if (calc == 0)
-    {
-        rads.push_back(count);
     }
-    else if (circles.radius == calc)
-    {
-        rads.push_back(test);
-    }
+    return count;
 }
 
 int main()
 {
     vector<Circle> circles;
     vector<double> rads;
-    int runCount = 1000;
+    int runCount = 100;
     int i;
     int j;
     int k;
     int maxrad = 11;
-    double test = 0;
     double aver = 0;
-
+    double aver1 = 0;
+    double total = 0;
+    double ttotal = 0;
     for (i = 0; i < runCount; i++)
     {
         genCircle(circles);
     }
-    int count = intersectionCount(circles);
+    /*USED TO OUTPUT ALL RADI*/
+    /*    for (j = 0; j < circles.size(); j++)
+     {
+     cout << "#" << j << " ::Radius:: " << circles[j].radius << endl;
+     }*/
+
     for (i = 0; i < maxrad; i++)
     {
         rads.clear();
         aver = 0;
+        total = 0;
+        aver1 = 0;
+        if (i == 0)
+        {
+            ttotal = intersectionCount(i, circles);
+            cout << "Total Intersections This Iteration: " << ttotal << endl
+                    << endl;
+
+        }
+        else
+        {
+            total = intersectionCount(i, circles);
+            cout << "Total Intersections at   " << i << ": " << total << endl;
+
+        }
         for (j = 0; j < circles.size(); j++)
         {
-            averageIntersections(i, circles[j], rads,
-                    ((double) count) / circles.size());
+            if (circles[j].radius == i)
+            {
+                aver++;
+            }
         }
-
-        for (k = 0; k < rads.size(); k++)
+        aver = total / ttotal * 100;
+        if (i == 0)
         {
-            aver = aver + rads[k];
         }
-        cout << "Test:: Total Points: " << aver << endl;
-        aver = aver / circles.size();
-        cout << "Average Total Intersections " << i << ": " << aver << endl;
+        else
+        {
 
+            cout << "Average Intersections at " << i << ": " << aver << "%"
+                    << endl << endl;
+        }
     }
-    /*USED TO OUTPUT ALL RADI*/
-    /*    for (j = 0; j < circles.size(); j++)
-     {
-     cout << "#" << j << " :: Radius:: " << circles[j].radius << endl;
-     }*/
 
     return 0;
 }
