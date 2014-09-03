@@ -148,10 +148,10 @@ int main()
         genCircle(circles);
     }
     /*USED TO OUTPUT ALL RADI*/
-    /*    for (j = 0; j < circles.size(); j++)
+        for (j = 0; j < circles.size(); j++)
      {
      cout << "#" << j << " ::Radius:: " << circles[j].radius << endl;
-     }*/
+     }
 
     for (i = 0; i < maxrad; i++)
     {
