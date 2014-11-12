@@ -36,6 +36,19 @@ public:
     void listRestraunts();
 };
 
+YalpRestraunts::YalpRestraunts()
+{
+
+}
+Restraunt::Restraunt()
+{
+    rating = 1;
+}
+MenuItem::MenuItem()
+{
+    foodprice = 0;
+    foodname = "";
+}
 MenuItem::MenuItem(const string &init_name, double init_price)
 {
     foodname = init_name;
@@ -57,8 +70,10 @@ void YalpRestraunts::findFood()
 }
 void YalpRestraunts::listRestraunts()
 {
-    int i = 0;
-    for (i = 0; i < )
+    for (auto & itor : Restraunts)
+    {
+        cout << itor.first << endl;
+    }
 }
 double Restraunt::averageMenuPrice()
 {
@@ -71,8 +86,18 @@ double Restraunt::averageMenuPrice()
 }
 string Restraunt::ratingScheme()
 {
-
-    return "no";
+    if (rating == 1 )
+        return "|*----|\n";
+    else if (rating == 2 )
+        return "|**---|\n";
+    else if (rating == 3 )
+            return "|***--|\n";
+    else if (rating == 4 )
+            return "|****-|\n";
+    else if (rating == 5 )
+            return "|*****|\n";
+    else
+        return "Invalid Rating";
 }
 void populateData(YalpRestraunts &yalp)
 {
@@ -100,7 +125,7 @@ int main()
 {
     YalpRestraunts yalp;
     populateData(yalp);
-
+    yalp.listRestraunts();
 
     return 0;
 }
