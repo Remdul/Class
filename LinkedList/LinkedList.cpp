@@ -5,13 +5,13 @@
 #include "LinkedList.h"
 
 #define mark() {std::cout << "Location: " << __LINE__ << std::endl;}
-
+/*
 #define ASSERT_EQUAL(EXPRESSION, EXPECTED) \
 std::cout << "Testing" << #EXPRESSION << "is equal to " << #EXPECTED << ": ";\
 if (EXPECTED == (EXPRESSION))\
 {std::cout << "PASS\n";}\
 else {std::cout << "FAIL\n";}\
-
+*/
 //Implement asVector
 //Implement Unit tests
 //Convert Doubly Linked List
@@ -258,8 +258,8 @@ bool test(std::vector<int>expectedValues, LinkedList List)
     std::cout << "Fail" << std::endl;
     return false;
 }
-
-std::vector<int> asVector()
+//this needs to be scoped
+std::vector<int> LinkedList::asVector()
 {
     int sizeTotal = size();
     std::vector<int> values;
@@ -285,7 +285,7 @@ int main(int argc, const char * argv[])
     expectedValues.push_back(3);
     listMain.printList();
     std::cout <<"SIZE:: "<< listMain.getSize() << std::endl;
-    ASSERT_EQUAL(listMain.popAt(1), expectedValues);
+//    ASSERT_EQUAL(listMain.popAt(1), expectedValues);
     listMain.popAt(7);
     test(expectedValues, listMain);
 }
