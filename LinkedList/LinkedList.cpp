@@ -5,13 +5,13 @@
 #include "LinkedList.h"
 
 #define mark() {std::cout << "Location: " << __LINE__ << std::endl;}
-
+/*
 #define ASSERT_EQUAL(EXPRESSION, EXPECTED) \
 std::cout << "Testing" << #EXPRESSION << "is equal to " << #EXPECTED << ": ";\
 if (EXPECTED == (EXPRESSION))\
 {std::cout << "PASS\n";}\
 else {std::cout << "FAIL\n";}\
-
+*/
 //Implement asVector
 //Implement Unit tests
 //Convert Doubly Linked List
@@ -32,7 +32,12 @@ LinkedList::~LinkedList()
         std::cout << "Memory has been Chomped." << std::endl;
         return;
     }
-    while (deleteNode != NULL) {
+    while (NULL != deleteNode) {
+        if (deleteNode->_nextNode == NULL)
+        {
+            delete deleteNode;
+            return;
+        }
         nextDeleteNode = deleteNode->_nextNode;
         delete deleteNode;
         deleteNode = nextDeleteNode;
@@ -95,10 +100,18 @@ int LinkedList::size() const
 {
     Node *current   = _listHead;
     int count       = 0;
-    while (NULL != current)
+    bool cont       = true;
+    while (cont == true)
     {
         count++;
-        current = current->_nextNode;
+        if (current->_nextNode != NULL)
+        {
+            current = current->_nextNode;
+        }
+        else
+        {
+            cont = false;
+        }
     }
     return count;
 }
@@ -258,14 +271,13 @@ bool test(std::vector<int>expectedValues, LinkedList List)
     std::cout << "Fail" << std::endl;
     return false;
 }
-//this needs to be scoped
+
 std::vector<int> LinkedList::asVector()
 {
-    int sizeTotal = size();
     std::vector<int> values;
-    for (int i = 0; i < size(); i++)
+    for (int i = 0; i < _size; i++)
     {
-
+        values.push_back(operator [](i));
     }
     return values;
 }
@@ -285,7 +297,8 @@ int main(int argc, const char * argv[])
     expectedValues.push_back(3);
     listMain.printList();
     std::cout <<"SIZE:: "<< listMain.getSize() << std::endl;
-    ASSERT_EQUAL(listMain.popAt(1), expectedValues);
+//    ASSERT_EQUAL(listMain.popAt(1), expectedValues);
     listMain.popAt(7);
     test(expectedValues, listMain);
+    listMain.asVector();
 }
