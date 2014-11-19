@@ -30,7 +30,7 @@ public:
     int popAt(int index);
     int getSize() const;
     int operator[](int i){return at(i);}
-    std::vector<int> asVector();
+    std::vector<int> asVector() const;
 private:
     Node *_listHead;                                                    // Where doos list start?
     Node *_listTail;                                                    // Where does list end?

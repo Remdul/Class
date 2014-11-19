@@ -32,12 +32,15 @@ LinkedList::~LinkedList()
         std::cout << "Memory has been Chomped." << std::endl;
         return;
     }
+    int i = 0;
     while (NULL != deleteNode) {
         if (deleteNode->_nextNode == NULL)
         {
+            std::cout << "Deleteing last node" << std::endl;
             delete deleteNode;
             return;
         }
+        std::cout << "Deleting node " << i++ << std::endl;
         nextDeleteNode = deleteNode->_nextNode;
         delete deleteNode;
         deleteNode = nextDeleteNode;
@@ -233,12 +236,12 @@ int LinkedList::popAt(int index)
         return -1;
     }
 
-    if (_size == index)
+    if ((_size -1) == index)
     {
         popTail();
         return -1;
     }
-    if (_size < index)
+    if (_size < index) 
     {
         return -1;
     }
@@ -252,6 +255,8 @@ int LinkedList::popAt(int index)
             findNode->_nextNode = tempNode->_nextNode;
             delete tempNode;
             _size -= 1;
+            return -1;
+            //I think there should be a return here
         }
         findNode = findNode->_nextNode;
         indexCounter += 1;
@@ -272,12 +277,17 @@ bool test(std::vector<int>expectedValues, LinkedList List)
     return false;
 }
 
-std::vector<int> LinkedList::asVector()
+//this should be a const func
+std::vector<int> LinkedList::asVector() const
 {
     std::vector<int> values;
     for (int i = 0; i < _size; i++)
     {
-        values.push_back(operator [](i));
+        //why did you use the operator here instead of at() ?
+        //Made no difference, ultimately.
+        //the point of operator overloading is to make synax sympler. Using the operator
+        //there does not make the synax simpler
+        values.push_back(at(i));
     }
     return values;
 }
