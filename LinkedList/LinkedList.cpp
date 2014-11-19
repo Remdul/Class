@@ -12,9 +12,6 @@ if (EXPECTED == (EXPRESSION))\
 {std::cout << "PASS\n";}\
 else {std::cout << "FAIL\n";}\
 
-#define PRINTVECTOR(VECTOR) \
-for () {} \
-
 //Implement asVector
 //Implement Unit tests
 //Convert Doubly Linked List
@@ -23,8 +20,9 @@ LinkedList::LinkedList()
 {
     _listHead = NULL;
     _listTail = NULL;
-    _size = 0;
+    _size     = 0;
 }
+
 LinkedList::~LinkedList()
 {
     Node *deleteNode = _listHead;
@@ -105,7 +103,7 @@ int LinkedList::size() const
     return count;
 }
 
-int LinkedList::getSize()
+int LinkedList::getSize() const
 {
     return _size;
 }
@@ -247,6 +245,31 @@ int LinkedList::popAt(int index)
     }
     return -1;
 }
+bool test(std::vector<int>expectedValues, LinkedList List)
+{
+    for (int i = 0; i < expectedValues.size(); i++)
+    {
+        if (expectedValues[i] == List.operator [](i))
+        {
+            std::cout << "Pass" << std::endl;
+            return true;
+        }
+    }
+    std::cout << "Fail" << std::endl;
+    return false;
+}
+
+std::vector<int> asVector()
+{
+    int sizeTotal = size();
+    std::vector<int> values;
+    for (int i = 0; i < size(); i++)
+    {
+
+    }
+    return values;
+}
+
 int main(int argc, const char * argv[])
 {
     LinkedList listMain;
@@ -260,12 +283,9 @@ int main(int argc, const char * argv[])
     expectedValues.push_back(1);
     expectedValues.push_back(2);
     expectedValues.push_back(3);
-    expectedValues.push_back(4);
-
     listMain.printList();
     std::cout <<"SIZE:: "<< listMain.getSize() << std::endl;
     ASSERT_EQUAL(listMain.popAt(1), expectedValues);
-//    listMain.printList();
-//    std::cout <<"SIZE:: "<< listMain.getSize() << std::endl;
-
+    listMain.popAt(7);
+    test(expectedValues, listMain);
 }

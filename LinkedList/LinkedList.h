@@ -28,8 +28,9 @@ public:
     int popHead();
     int popTail();
     int popAt(int index);
-    int getSize();
+    int getSize() const;
     int operator[](int i){return at(i);}
+    std::vector<int> asVector();
 private:
     Node *_listHead;                                                    // Where doos list start?
     Node *_listTail;                                                    // Where does list end?
