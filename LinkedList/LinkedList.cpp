@@ -16,6 +16,30 @@ else {std::cout << "FAIL\n";}\
 //Implement Unit tests
 //Convert Doubly Linked List
 
+bool LinkedList::iterating()
+{
+    if (_listHead == NULL)
+    {
+        return false;
+    }
+    else if (_listTail == NULL)
+    {
+        return false;
+    }
+    else if (_listTail->_nextNode != NULL)
+    {
+        return false;
+    }
+    else if ( _listTail != _listHead)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 LinkedList::LinkedList()
 {
     _listHead = NULL;
@@ -36,7 +60,7 @@ LinkedList::~LinkedList()
     while (NULL != deleteNode) {
         if (deleteNode->_nextNode == NULL)
         {
-            std::cout << "Deleteing last node" << std::endl;
+            std::cout << "Deleting last node" << std::endl;
             delete deleteNode;
             return;
         }
@@ -126,10 +150,15 @@ int LinkedList::getSize() const
 
 int LinkedList::at(int index) const
 {
+    iterating();
     Node *findNode = _listHead;
     int indexCounter = 0;
     while (NULL != findNode)
     {
+        if (NULL == findNode)
+        {
+            return -1;
+        }
         if (indexCounter == index)
         {
             return findNode->_value;
@@ -142,6 +171,7 @@ int LinkedList::at(int index) const
 }
 void LinkedList::insertBefore(int index, int value)
 {
+    iterating();
     Node *findNode = _listHead;
     Node *insertNode = new Node(value);
     int indexCounter = 0;
@@ -167,6 +197,7 @@ void LinkedList::insertBefore(int index, int value)
 }
 int LinkedList::popHead()
 {
+    iterating();
     int poppedValue;
     if (_listHead == NULL)
     {
@@ -267,7 +298,11 @@ bool test(std::vector<int>expectedValues, LinkedList List)
 {
     for (int i = 0; i < expectedValues.size(); i++)
     {
-        if (expectedValues[i] == List.operator [](i))
+        if (-1 == List.at(i))
+        {
+            return false;
+        }
+        if (expectedValues[i] == List.at(i))
         {
             std::cout << "Pass" << std::endl;
             return true;
@@ -277,25 +312,19 @@ bool test(std::vector<int>expectedValues, LinkedList List)
     return false;
 }
 
-//this should be a const func
 std::vector<int> LinkedList::asVector() const
 {
     std::vector<int> values;
     for (int i = 0; i < _size; i++)
     {
-        //why did you use the operator here instead of at() ?
-        //Made no difference, ultimately.
-        //the point of operator overloading is to make synax sympler. Using the operator
-        //there does not make the synax simpler
         values.push_back(at(i));
     }
     return values;
 }
-
 int main(int argc, const char * argv[])
 {
     LinkedList listMain;
-    const int addtoList = 5;
+    const int addtoList = 3;
     for (int i = 0; i < addtoList; i++)
     {
         listMain.addNodeEnd(i);
@@ -309,6 +338,6 @@ int main(int argc, const char * argv[])
     std::cout <<"SIZE:: "<< listMain.getSize() << std::endl;
 //    ASSERT_EQUAL(listMain.popAt(1), expectedValues);
     listMain.popAt(7);
-    test(expectedValues, listMain);
     listMain.asVector();
+    std::cout << "Calling Destructor...." << std::endl;
 }
