@@ -16,27 +16,17 @@ else {std::cout << "FAIL\n";}\
 //Implement Unit tests
 //Convert Doubly Linked List
 
-bool LinkedList::iterating()
+bool LinkedList::walk()
 {
-    if (_listHead == NULL)
+    Node *current = _listHead;
+    while (NULL != current)
     {
-        return false;
+        current=current->next;
     }
-    else if (_listTail == NULL)
+    current = _listTail;
+    while (NULL != current)
     {
-        return false;
-    }
-    else if (_listTail->_nextNode != NULL)
-    {
-        return false;
-    }
-    else if ( _listTail != _listHead)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
+        current=current->next;
     }
 }
 
