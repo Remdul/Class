@@ -26,7 +26,7 @@ public:
     void printList() const;
     int at(int index) const;
     int popHead();
-    bool iterating();
+    void walk();
     int popTail();
     int popAt(int index);
     int getSize() const;

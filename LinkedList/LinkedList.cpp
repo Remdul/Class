@@ -5,28 +5,33 @@
 #include "LinkedList.h"
 
 #define mark() {std::cout << "Location: " << __LINE__ << std::endl;}
-/*
+
 #define ASSERT_EQUAL(EXPRESSION, EXPECTED) \
 std::cout << "Testing" << #EXPRESSION << "is equal to " << #EXPECTED << ": ";\
 if (EXPECTED == (EXPRESSION))\
 {std::cout << "PASS\n";}\
 else {std::cout << "FAIL\n";}\
-*/
-//Implement asVector
+
+#define VECTORLISTCOMP(VECTOR, LIST) \
+std::cout << "Testing " << #VECTOR << " is equal to " << #LIST << ": ";\
+for (int i = 0; i < VECTOR.size(); i++)\
+{if (LIST.at(i) == VECTOR[i]){std::cout << "True for " << i << std::endl;}\
+else{std::cout << "False for " << i << std::endl;}}\
+
 //Implement Unit tests
 //Convert Doubly Linked List
 
-bool LinkedList::walk()
+void LinkedList::walk()
 {
     Node *current = _listHead;
     while (NULL != current)
     {
-        current=current->next;
+        current=current->_nextNode;
     }
     current = _listTail;
     while (NULL != current)
     {
-        current=current->next;
+        current=current->_nextNode;
     }
 }
 
@@ -78,6 +83,7 @@ void LinkedList::printList() const
 
 void LinkedList::addNodeEnd(int value)
 {
+    walk();
     if (_listHead == NULL)
     {
         Node *newNode = new Node(value);
@@ -97,6 +103,7 @@ void LinkedList::addNodeEnd(int value)
 
 void LinkedList::addNodeBegin(int value)
 {
+    walk();
     if (_listHead == NULL)
     {
         Node *newNode = new Node(value);
@@ -140,7 +147,6 @@ int LinkedList::getSize() const
 
 int LinkedList::at(int index) const
 {
-    iterating();
     Node *findNode = _listHead;
     int indexCounter = 0;
     while (NULL != findNode)
@@ -161,7 +167,7 @@ int LinkedList::at(int index) const
 }
 void LinkedList::insertBefore(int index, int value)
 {
-    iterating();
+    walk();
     Node *findNode = _listHead;
     Node *insertNode = new Node(value);
     int indexCounter = 0;
@@ -187,7 +193,7 @@ void LinkedList::insertBefore(int index, int value)
 }
 int LinkedList::popHead()
 {
-    iterating();
+    walk();
     int poppedValue;
     if (_listHead == NULL)
     {
@@ -211,6 +217,7 @@ int LinkedList::popHead()
 }
 int LinkedList::popTail()
 {
+    walk();
     int poppedValue;
     if (_listHead == NULL)
     {
@@ -239,6 +246,7 @@ int LinkedList::popTail()
 }
 int LinkedList::popAt(int index)
 {
+    walk();
     if (NULL == _listHead)
     {
         return -1;
@@ -284,23 +292,6 @@ int LinkedList::popAt(int index)
     }
     return -1;
 }
-bool test(std::vector<int>expectedValues, LinkedList List)
-{
-    for (int i = 0; i < expectedValues.size(); i++)
-    {
-        if (-1 == List.at(i))
-        {
-            return false;
-        }
-        if (expectedValues[i] == List.at(i))
-        {
-            std::cout << "Pass" << std::endl;
-            return true;
-        }
-    }
-    std::cout << "Fail" << std::endl;
-    return false;
-}
 
 std::vector<int> LinkedList::asVector() const
 {
@@ -314,20 +305,23 @@ std::vector<int> LinkedList::asVector() const
 int main(int argc, const char * argv[])
 {
     LinkedList listMain;
-    const int addtoList = 3;
+    const int addtoList = 20;
+    std::vector<int>expectedValues;
     for (int i = 0; i < addtoList; i++)
     {
         listMain.addNodeEnd(i);
     }
-    std::vector<int>expectedValues;
-    expectedValues.push_back(0);
-    expectedValues.push_back(1);
-    expectedValues.push_back(2);
-    expectedValues.push_back(3);
     listMain.printList();
     std::cout <<"SIZE:: "<< listMain.getSize() << std::endl;
-//    ASSERT_EQUAL(listMain.popAt(1), expectedValues);
+//    ASSERT_EQUAL(listMain.popAt(1), 5);
     listMain.popAt(7);
-    listMain.asVector();
+    listMain.printList();
+    std::cout <<"SIZE:: "<< listMain.getSize() << std::endl;
+    listMain.addNodeEnd(44);
+    listMain.printList();
+    std::cout <<"SIZE:: "<< listMain.getSize() << std::endl;
+
+    expectedValues = listMain.asVector();
+    VECTORLISTCOMP(expectedValues, listMain);
     std::cout << "Calling Destructor...." << std::endl;
 }
